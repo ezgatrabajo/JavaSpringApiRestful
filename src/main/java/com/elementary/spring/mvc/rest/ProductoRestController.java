@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import com.elementary.spring.mvc.repository.ProductoRepository;
+import com.elementary.spring.mvc.model.Marca;
 import com.elementary.spring.mvc.model.Producto;
 
 import org.springframework.http.HttpStatus;
@@ -27,6 +28,11 @@ public class ProductoRestController {
 	@GetMapping()
 	public List<Producto> findAll(){
 		return repo.findAll();
+	}  
+	
+	@GetMapping(value="/{id}")
+	public Producto view(@PathVariable("id") Integer id){
+		return repo.findById(id).get();
 	}  
 	
 	@PostMapping()

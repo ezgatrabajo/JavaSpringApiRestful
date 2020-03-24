@@ -1,6 +1,7 @@
 package com.elementary.spring.mvc.rest;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -29,12 +30,18 @@ public class MarcaRestController {
 		return repo.findAll();
 	}  
 	
+	@GetMapping(value="/{id}")
+	public Marca view(@PathVariable("id") Integer id){
+		return repo.findById(id).get();
+	}  
+	
 	@PostMapping()
 	@ResponseStatus(HttpStatus.CREATED)
 	public void add(@RequestBody Marca e){
 		repo.save(e);
 	}
-
+	  
+	
 	@PutMapping()
 	public void edit(@RequestBody Marca e){
 		repo.save(e);

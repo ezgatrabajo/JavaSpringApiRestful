@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.elementary.spring.mvc.repository.EmployeeRepository;
 import com.sun.xml.bind.v2.model.core.ID;
 import com.elementary.spring.mvc.model.Employee;
+import com.elementary.spring.mvc.model.Marca;
+
 import org.springframework.http.HttpStatus;
 @RestController
 @RequestMapping("/v1/employees")
@@ -27,6 +29,11 @@ public class EmployeeRestController {
 	@GetMapping()
 	public List<Employee> findAll(){
 		return repo.findAll();
+	}  
+	
+	@GetMapping(value="/{id}")
+	public Employee view(@PathVariable("id") Integer id){
+		return repo.findById(id).get();
 	}  
 	
 	@PostMapping()

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import com.elementary.spring.mvc.repository.EstadoRepository;
 import com.elementary.spring.mvc.model.Estado;
+import com.elementary.spring.mvc.model.Marca;
 
 import org.springframework.http.HttpStatus;
 
@@ -27,6 +28,11 @@ public class EstadoRestController {
 	@GetMapping()
 	public List<Estado> findAll(){
 		return repo.findAll();
+	}  
+	
+	@GetMapping(value="/{id}")
+	public Estado view(@PathVariable("id") Integer id){
+		return repo.findById(id).get();
 	}  
 	
 	@PostMapping()

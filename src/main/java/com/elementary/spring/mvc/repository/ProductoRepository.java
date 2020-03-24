@@ -12,6 +12,6 @@ import com.elementary.spring.mvc.model.Marca;
 import com.elementary.spring.mvc.model.Producto;
 
 public interface ProductoRepository extends JpaRepository<Producto, Integer> {
-
+	
 }
 
