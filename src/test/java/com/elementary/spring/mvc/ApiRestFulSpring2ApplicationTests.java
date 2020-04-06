@@ -16,12 +16,5 @@ class ApiRestFulSpring2ApplicationTests {
 	void contextLoads() {
 	}
 	
-	@Test
-	void crearUsuarioTest() {
-		Usuario u = new Usuario(0,"developer","aqswdefr");
-		Usuario ret = repo.save(u);
-		
-		//assertTrue(ret.getPassword().equalsIgnoreCase(u.getUsername()));
-		
-	}
+	
 }

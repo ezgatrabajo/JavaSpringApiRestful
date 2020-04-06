@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="Categoria")
@@ -15,9 +17,13 @@ public class Categoria {
     private int id;
 	
 	@Column(name="nombre")
+	@Size(min=3, message="Debe tener al menos 3 caracteres")
+	@NotNull
 	private String nombre;
 	
 	@Column(name="descripcion")
+	@Size(min=10, message="Debe tener al menos 3 caracteres")
+	@NotNull
 	private String descripcion;
 
 	public Categoria(int id, String nombre, String descripcion) {
