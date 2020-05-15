@@ -3,4 +3,8 @@ login:
 	pass: 123
 	
 
-	
+cf push test-environment -p target\employee-producer-0.0.1-SNAPSHOT.jar
+cf push ApiRestfulSpring -p target/ApiRestFulSpring-2-0.0.1-SNAPSHOT.jar
+targetApiRestFulSpring-2-0.0.1-SNAPSHOT.jar
+
+ cf push test-employee -p target\employee-producer-0.0.1-SNAPSHOT.jar

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    <head>
+        <title>Spring Security Example</title>
+    </head>
+    <body>
+        <h2>Bienvenido a la web Spring!</h2>
+
+        <h3>ApiRestful links</h3>
+        <p>Click <a th:href="@{/v1/categorias}">here</a> Categorias.</p>
+        <p>Click <a th:href="@{/v1/marcas}">here</a> Marcas.</p>
+        <br>
+        <h3>ApiRestful Swagger</h3>
+        <p>Click <a th:href="@{/swagger-ui.html}">here</a> Swagger Documentation.</p>
+    </body>
+</html>

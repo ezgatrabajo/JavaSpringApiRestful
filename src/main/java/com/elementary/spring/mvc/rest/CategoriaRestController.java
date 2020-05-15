@@ -1,5 +1,6 @@
 package com.elementary.spring.mvc.rest;
 
+import java.net.URI;
 import java.util.List;
 
 import javax.persistence.Convert;
@@ -16,8 +17,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.elementary.spring.mvc.repository.CategoriaRepository;
+
 
 import io.swagger.annotations.ApiOperation;
 
@@ -25,6 +28,7 @@ import com.elementary.spring.mvc.model.Categoria;
 import com.elementary.spring.mvc.exception.CategoriaNotFoundException;
 import com.elementary.spring.mvc.exception.CategoriaCustomNotFoundException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 //import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 //import org.springframework.hateoas.CollectionModel;
 @RestController
@@ -66,15 +70,34 @@ public class CategoriaRestController {
 	public void add(@RequestBody Categoria e){
 		repo.save(e);
 	}
+	
+	@PostMapping("/addnew")
+	public ResponseEntity<?> addNew(@RequestBody Categoria e) {
+		repo.save(e);
+		
+		
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+				.buildAndExpand(e.getId()).toUri();
+		return ResponseEntity.created(location).build();
+	}
+	
 
 	@PutMapping()
-	public void edit(@RequestBody Categoria e){
+	public ResponseEntity<Categoria> edit(@RequestBody Categoria e){
+		
 		repo.save(e);
+		return new ResponseEntity<Categoria>(e, HttpStatus.OK);
 	}
 
 	@DeleteMapping(value="/{id}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void delete(@PathVariable("id") Integer id){
 		repo.deleteById(id);
+	}
+	
+	@GetMapping("/holamundo")
+	public String holamundo() {
+		return "holamundo";
 	}
 	
 }
