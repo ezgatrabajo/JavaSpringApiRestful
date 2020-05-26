@@ -1,12 +1,6 @@
-package com.elementary.spring.mvc.service;
-
-import java.util.ArrayList;
-import java.util.List;
+package com.elementary.spring.mvc.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -18,19 +12,19 @@ import com.elementary.spring.mvc.repository.UsuarioRepository;
 @Service
 public class UserService implements UserDetailsService{
 
-	@Autowired
+
 	private UsuarioRepository repo;
-	
+
+	public UserService(UsuarioRepository userRepository) {
+		this.repo = userRepository;
+	}
+
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		Usuario u = repo.findByUsername(username);
-		
-		List<GrantedAuthority> roles = new ArrayList<>();
-		roles.add(new SimpleGrantedAuthority("ADMIN"));
-		UserDetails ud = new User(u.getUsername(), u.getPassword(), roles);
-		
-		return ud;
+		UserPrincipal up = new UserPrincipal(u);
+		return up;
 	}
-	
+
 
 }

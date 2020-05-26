@@ -25,6 +25,7 @@ import com.elementary.spring.mvc.repository.CategoriaRepository;
 import io.swagger.annotations.ApiOperation;
 
 import com.elementary.spring.mvc.model.Categoria;
+import com.elementary.spring.mvc.model.Estado;
 import com.elementary.spring.mvc.exception.CategoriaNotFoundException;
 import com.elementary.spring.mvc.exception.CategoriaCustomNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -83,10 +84,8 @@ public class CategoriaRestController {
 	
 
 	@PutMapping()
-	public ResponseEntity<Categoria> edit(@RequestBody Categoria e){
-		
+	public void edit(@RequestBody Categoria e){
 		repo.save(e);
-		return new ResponseEntity<Categoria>(e, HttpStatus.OK);
 	}
 
 	@DeleteMapping(value="/{id}")
