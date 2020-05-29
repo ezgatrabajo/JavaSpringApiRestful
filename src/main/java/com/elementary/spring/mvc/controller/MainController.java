@@ -25,15 +25,5 @@ public class MainController {
 		return "login";
     }
 
-	@GetMapping("tests/test1")
-	public String test1() {
-		return "tests/test1";
-	}
-
-	@GetMapping("tests/test2")
-	public String test2() { return "tests/test2"; }
-
-	@GetMapping("profile/index")
-	public String profile() { return "profile/index"; }
 
 }

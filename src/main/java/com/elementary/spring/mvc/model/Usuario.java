@@ -60,7 +60,7 @@ public class Usuario {
 	}
 
 	public Usuario( String username, String password, String roles, String permissions) {
-		this.id = id;
+
 		this.username = username;
 		this.password = password;
 		this.roles = roles;
@@ -77,7 +77,7 @@ public class Usuario {
 	}
 
 	public Usuario() {
-		super();
+
 	}
 
 	public String getRoles() {
