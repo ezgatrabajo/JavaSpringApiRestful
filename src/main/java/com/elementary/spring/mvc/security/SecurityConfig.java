@@ -24,9 +24,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	private UsuarioRepository userRepository;
 	private UserService userService;
 
-	public SecurityConfig(UserService us ){
+	public SecurityConfig(UserService us , UsuarioRepository userRepository ){
+		this.userRepository = userRepository;
 		this.userService = us;
 	}
+
+
 	@Bean
 	public BCryptPasswordEncoder passwordEncoder() {
 		BCryptPasswordEncoder b= new BCryptPasswordEncoder();
@@ -50,8 +53,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			.addFilter(new JwtAuthorizationFilter(authenticationManager(),  this.userRepository))
 			.authorizeRequests()
 			// configure access rules
-			    .antMatchers(HttpMethod.POST, "/login").permitAll()
-                .antMatchers("/index.html").permitAll()
+				//tutorial
+				.antMatchers(HttpMethod.GET, "/").permitAll()
+				.antMatchers(HttpMethod.POST, "/login").permitAll()
+				.antMatchers("/api/public/management/*").hasRole("MANAGER")
+				.antMatchers("/api/public/admin/*").hasRole("ADMIN")
+				//Mios
+				.antMatchers("/index.html").permitAll()
                 .antMatchers("/profile/**").authenticated()
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/management/**").hasAnyRole("ADMIN", "MANAGER")
@@ -59,7 +67,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .antMatchers("/api/public/test2").hasAuthority("ACCESS_TEST2")
                 .antMatchers("/v1/marcas/").hasAuthority("ACCESS_TEST1")
                 .antMatchers("/v1/categorias/").hasAuthority("ACCESS_TEST2")
-				.and()
+				.anyRequest().authenticated();
                 //.httpBasic().and().csrf().disable();
 				/*
 				.formLogin()
