@@ -47,10 +47,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception {
 		http
             .csrf().disable()
-            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            .and()
-			.addFilter(new JwtAuthenticationFilter(authenticationManager()))
-			.addFilter(new JwtAuthorizationFilter(authenticationManager(),  this.userRepository))
+				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+				.and()
+				.addFilter(new JwtAuthenticationFilter(authenticationManager()))
+				.addFilter(new JwtAuthorizationFilter(authenticationManager(),  this.userRepository))
 			.authorizeRequests()
 			// configure access rules
 				//tutorial
@@ -67,7 +67,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .antMatchers("/api/public/test2").hasAuthority("ACCESS_TEST2")
                 .antMatchers("/v1/marcas/").hasAuthority("ACCESS_TEST1")
                 .antMatchers("/v1/categorias/").hasAuthority("ACCESS_TEST2")
-				.anyRequest().authenticated();
+				.anyRequest().authenticated()
                 //.httpBasic().and().csrf().disable();
 				/*
 				.formLogin()
@@ -79,7 +79,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 				.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login")
 				.and()
 				.rememberMe().tokenValiditySeconds(2592000).key("mySecret!").rememberMeParameter("checkRememberMe");
-				*/
+*/
 
 		;
 	}

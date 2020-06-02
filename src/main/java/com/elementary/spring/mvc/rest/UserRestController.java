@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.elementary.spring.mvc.repository.EmployeeRepository;
-import com.elementary.spring.mvc.repository.ProductoRepository;
 import com.elementary.spring.mvc.repository.UsuarioRepository;
 import com.elementary.spring.mvc.model.Usuario;
 

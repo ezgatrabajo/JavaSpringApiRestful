@@ -43,6 +43,7 @@ public class CategoriaRestControllerTest {
 			{
 				String auth = username + ":" + password;
 				byte[] encodedAuth = Base64.getEncoder().encode(auth.getBytes(Charset.forName("US-ASCII")));
+
 				String authHeader = "Basic " + new String(encodedAuth);
 				set("Authorization", authHeader);
 			}
@@ -117,7 +118,11 @@ public class CategoriaRestControllerTest {
 		System.out.println("debug1: "+ response.getBody());
 		JSONAssert.assertEquals(expected, response.getBody(), false);
 	}
-	
+
+	@Test
+	public void categoriasAllJWT () throws Exception{
+
+	}
 	/* -- UNIT TEST
 	//findall categoria
 	@Test

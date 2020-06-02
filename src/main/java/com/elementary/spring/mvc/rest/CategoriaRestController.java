@@ -8,13 +8,13 @@ import javax.persistence.Convert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 //import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.Link;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.elementary.spring.mvc.repository.CategoriaRepository;
 
-
-import io.swagger.annotations.ApiOperation;
 
 import com.elementary.spring.mvc.model.Categoria;
 import com.elementary.spring.mvc.model.Estado;
@@ -22,8 +22,12 @@ import com.elementary.spring.mvc.exception.CategoriaNotFoundException;
 import com.elementary.spring.mvc.exception.CategoriaCustomNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 //import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 //import org.springframework.hateoas.CollectionModel;
+
+
 @RestController
 @RequestMapping("/v1/categorias")
 @CrossOrigin
@@ -31,13 +35,7 @@ public class CategoriaRestController {
 	
 	@Autowired
 	private CategoriaRepository repo;
-	
-	@ApiOperation(
-			value="Listado de Categorias",
-			notes =" Listado de todas las categorias",
-			response = Categoria.class,
-			responseContainer="List",
-			produces= "application/json")
+
 	@GetMapping()
 	public List<Categoria> findAll(){
 			List<Categoria> t =repo.findAll(); 
@@ -86,10 +84,21 @@ public class CategoriaRestController {
 	public void delete(@PathVariable("id") Integer id){
 		repo.deleteById(id);
 	}
-	
-	@GetMapping("/holamundo")
-	public String holamundo() {
-		return "holamundo";
+
+
+
+	@GetMapping("/all")
+	public CollectionModel<Categoria> getAllCustomers() {
+		List<Categoria> allCategorias = repo.findAll();
+
+		for (Categoria c : allCategorias) {
+			String customerId = String.valueOf(c.getId());
+			Link selfLink = linkTo(CategoriaRestController.class).slash(customerId).withSelfRel();
+			c.add(selfLink);
+		}
+
+		Link link = linkTo(CategoriaRestController.class).withSelfRel();
+		CollectionModel<Categoria> result = new CollectionModel<>(allCategorias, link);
+		return result;
 	}
-	
 }

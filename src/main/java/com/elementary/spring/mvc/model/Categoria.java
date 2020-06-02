@@ -1,5 +1,7 @@
 package com.elementary.spring.mvc.model;
 
+import org.springframework.hateoas.RepresentationModel;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,7 +12,7 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="Categoria")
-public class Categoria {
+public class Categoria extends RepresentationModel<Customer> {
 	@GeneratedValue
 	@Id
 	@Column(name="id")
