@@ -1,6 +1,6 @@
 package com.elementary.spring.mvc.security;
 import com.auth0.jwt.JWT;
-import com.elementary.spring.mvc.model.LoginViewModel;
+import com.elementary.spring.mvc.core.LoginViewModel;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

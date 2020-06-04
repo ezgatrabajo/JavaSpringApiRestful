@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class ApiRestFulSpring2Application {
 
 	public static void main(String[] args) {
+
 		SpringApplication.run(ApiRestFulSpring2Application.class, args);
 	}
 

@@ -1,31 +1,24 @@
 package com.elementary.spring.mvc.rest;
 
-import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
-import javax.persistence.Convert;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
-//import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.CollectionModel;
-import org.springframework.hateoas.Link;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.elementary.spring.mvc.repository.CategoriaRepository;
 
 
 import com.elementary.spring.mvc.model.Categoria;
-import com.elementary.spring.mvc.model.Estado;
-import com.elementary.spring.mvc.exception.CategoriaNotFoundException;
 import com.elementary.spring.mvc.exception.CategoriaCustomNotFoundException;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-//import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
-//import org.springframework.hateoas.CollectionModel;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 
 @RestController
@@ -36,25 +29,34 @@ public class CategoriaRestController {
 	@Autowired
 	private CategoriaRepository repo;
 
-	@GetMapping()
 	public List<Categoria> findAll(){
-			List<Categoria> t =repo.findAll(); 
-			
+			List<Categoria> t =repo.findAll();
 			return t;
 	}
-	
+
+	@GetMapping()
+	public CollectionModel<EntityModel<Categoria>> all() {
+
+		List<EntityModel<Categoria>> categorias =
+				repo.findAll().stream()
+				.map(c -> new EntityModel<Categoria>(c,
+						linkTo(methodOn(CategoriaRestController.class)
+								.view(c.getId())).withSelfRel(),
+						linkTo(methodOn(CategoriaRestController.class)
+								.findAll()).withRel("categorias")))
+						.collect(Collectors.toList());
+		CollectionModel<EntityModel<Categoria>> lc = new CollectionModel (categorias, linkTo(methodOn(CategoriaRestController.class).all()).withSelfRel());
+		return lc;
+	}
+
+
 	@GetMapping(value="/{id}")
-	public Categoria  view(@PathVariable("id") Integer id){
-		//return repo.findById(id).orElseThrow(() -> new CategoriaNotFoundException(id));
-		Categoria c =repo.findById(id).orElseThrow(() -> new CategoriaCustomNotFoundException("No se encontro Categoria id: " + id.toString())); 
-		//Resource <Categoria> rc = new Resource<Categoria>(c);
-		//ControllerLinkBuilder linkTo = linkTo(methodOn(this.getClass()).findAll());
-		/*
-		return new EntityModel<>(c,
+	public EntityModel<Categoria> view(@PathVariable("id") Integer id){
+		Categoria c =repo.findById(id).orElseThrow(() -> new CategoriaCustomNotFoundException("No se encontro Categoria id: " + id.toString()));
+		return new EntityModel<Categoria>(c,
 			    linkTo(methodOn(CategoriaRestController.class).view(id)).withSelfRel(),
 			    linkTo(methodOn(CategoriaRestController.class).findAll()).withRel("categorias"));
-		*/
-		return c;
+
 	}
 	
 	@PostMapping()
@@ -62,17 +64,7 @@ public class CategoriaRestController {
 	public void add(@RequestBody Categoria e){
 		repo.save(e);
 	}
-	
-	@PostMapping("/addnew")
-	public ResponseEntity<?> addNew(@RequestBody Categoria e) {
-		repo.save(e);
-		
-		
-		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-				.buildAndExpand(e.getId()).toUri();
-		return ResponseEntity.created(location).build();
-	}
-	
+
 
 	@PutMapping()
 	public void edit(@RequestBody Categoria e){
@@ -87,18 +79,4 @@ public class CategoriaRestController {
 
 
 
-	@GetMapping("/all")
-	public CollectionModel<Categoria> getAllCustomers() {
-		List<Categoria> allCategorias = repo.findAll();
-
-		for (Categoria c : allCategorias) {
-			String customerId = String.valueOf(c.getId());
-			Link selfLink = linkTo(CategoriaRestController.class).slash(customerId).withSelfRel();
-			c.add(selfLink);
-		}
-
-		Link link = linkTo(CategoriaRestController.class).withSelfRel();
-		CollectionModel<Categoria> result = new CollectionModel<>(allCategorias, link);
-		return result;
-	}
 }

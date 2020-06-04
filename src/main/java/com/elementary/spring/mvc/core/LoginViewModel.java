@@ -1,4 +1,4 @@
-package com.elementary.spring.mvc.model;
+package com.elementary.spring.mvc.core;
 
 public class LoginViewModel {
     private String username;

@@ -2,18 +2,15 @@ package com.elementary.spring.mvc.model;
 
 import org.springframework.hateoas.RepresentationModel;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name="Categoria")
-public class Categoria extends RepresentationModel<Customer> {
-	@GeneratedValue
+@Table(name="Categorias")
+public class Categoria extends RepresentationModel<Categoria> {
+
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
 	@Column(name="id")
     private int id;

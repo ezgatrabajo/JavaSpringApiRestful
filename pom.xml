@@ -63,11 +63,18 @@
 			<optional>true</optional>
 		</dependency>
 
+
 		<dependency>
 			<groupId>org.bitcoinj</groupId>
 			<artifactId>bitcoinj-core</artifactId>
 			<version>0.15.7</version>
 			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId> com.mercadopago </groupId>
+			<artifactId> dx-java </artifactId>
+			<version> 1.0.33 </version>
 		</dependency>
 
 		<dependency>
@@ -137,11 +144,13 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
 		<dependency>
 		    <groupId>com.h2database</groupId>
 		    <artifactId>h2</artifactId>
 		    <scope>test</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>com.auth0</groupId>
 			<artifactId>java-jwt</artifactId>

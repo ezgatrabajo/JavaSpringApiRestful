@@ -56,17 +56,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 				//tutorial
 				.antMatchers(HttpMethod.GET, "/").permitAll()
 				.antMatchers(HttpMethod.POST, "/login").permitAll()
-				.antMatchers("/api/public/management/*").hasRole("MANAGER")
 				.antMatchers("/api/public/admin/*").hasRole("ADMIN")
 				//Mios
 				.antMatchers("/index.html").permitAll()
                 .antMatchers("/profile/**").authenticated()
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/management/**").hasAnyRole("ADMIN", "MANAGER")
-                .antMatchers("/api/public/test1").hasAuthority("ACCESS_TEST1")
-                .antMatchers("/api/public/test2").hasAuthority("ACCESS_TEST2")
-                .antMatchers("/v1/marcas/").hasAuthority("ACCESS_TEST1")
-                .antMatchers("/v1/categorias/").hasAuthority("ACCESS_TEST2")
+                .antMatchers("/v1/categorias/**").hasRole("MANAGER")
+				.antMatchers("/v1/marcas/**").hasRole("ADMIN")
+
 				.anyRequest().authenticated()
                 //.httpBasic().and().csrf().disable();
 				/*

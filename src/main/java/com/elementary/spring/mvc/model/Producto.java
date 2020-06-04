@@ -1,16 +1,12 @@
 package com.elementary.spring.mvc.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name="Producto")
 public class Producto {
-	@GeneratedValue
+
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
 	@Column(name="id")
     private int id;

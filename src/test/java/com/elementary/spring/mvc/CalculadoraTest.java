@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 public class CalculadoraTest {
+
 	@Test
 	public void testSum() {
 		int num1 = 5;
