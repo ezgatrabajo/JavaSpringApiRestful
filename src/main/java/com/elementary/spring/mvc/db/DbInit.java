@@ -21,13 +21,13 @@ public class DbInit implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        this.userRepo.deleteAll();
+        //this.userRepo.deleteAll();
         Usuario u1 = new Usuario ("usuario1",encoder.encode("123"), "USER","");
         Usuario u2 = new Usuario ("admin",encoder.encode("123"),  "ADMIN","ACCESS_TEST1,ACCESS_TEST2");
         Usuario u3 = new Usuario ("manager",encoder.encode("123"),  "MANAGER","ACCESS_TEST1");
         List<Usuario> users = Arrays.asList(u1, u2, u3);
 
-        this.userRepo.saveAll(users);
+        //this.userRepo.saveAll(users);
 
     }
 }

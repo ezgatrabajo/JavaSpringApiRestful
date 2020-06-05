@@ -46,38 +46,48 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
-            .csrf().disable()
-				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-				.and()
+            	.csrf().disable()
+
+				//.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+
+				/*
 				.addFilter(new JwtAuthenticationFilter(authenticationManager()))
 				.addFilter(new JwtAuthorizationFilter(authenticationManager(),  this.userRepository))
-			.authorizeRequests()
-			// configure access rules
+				*/
+				.authorizeRequests()
+
+				// configure access rules
 				//tutorial
 				.antMatchers(HttpMethod.GET, "/").permitAll()
 				.antMatchers(HttpMethod.POST, "/login").permitAll()
 				.antMatchers("/api/public/admin/*").hasRole("ADMIN")
 				//Mios
 				.antMatchers("/index.html").permitAll()
-                .antMatchers("/profile/**").authenticated()
+                .antMatchers("/profile/**").permitAll()
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/management/**").hasAnyRole("ADMIN", "MANAGER")
                 .antMatchers("/v1/categorias/**").hasRole("MANAGER")
 				.antMatchers("/v1/marcas/**").hasRole("ADMIN")
+				.antMatchers("/mercadopago/**").permitAll()
+
 
 				.anyRequest().authenticated()
                 //.httpBasic().and().csrf().disable();
-				/*
+				.and()
 				.formLogin()
 				.loginPage("/login").permitAll()
 				.loginProcessingUrl("/signin")
 				.usernameParameter("txtUsername")
 				.passwordParameter("txtPassword")
 				.and()
-				.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login")
+				.logout()
+				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+				.logoutSuccessUrl("/login")
 				.and()
-				.rememberMe().tokenValiditySeconds(2592000).key("mySecret!").rememberMeParameter("checkRememberMe");
-*/
+				.rememberMe()
+				.tokenValiditySeconds(2592000).key("mySecret!")
+				.rememberMeParameter("checkRememberMe");
+
 
 		;
 	}

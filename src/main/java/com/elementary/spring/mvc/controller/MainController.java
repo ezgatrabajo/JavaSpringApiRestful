@@ -25,6 +25,9 @@ public class MainController {
 		return "login";
     }
 
-
+	@GetMapping("primefaces")
+	public String primefaces() {
+		return "primefaces";
+	}
 
 }
