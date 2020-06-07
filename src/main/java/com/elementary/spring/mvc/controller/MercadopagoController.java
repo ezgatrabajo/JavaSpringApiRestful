@@ -75,9 +75,8 @@ public class MercadopagoController {
             params.add(new BasicNameValuePair("code", code));
             params.add(new BasicNameValuePair("redirect_uri", uri));
 
-            httpPost.setHeader("Accept", "application/json");
-            httpPost.setHeader("Content-type", "application/json");
-
+            //httpPost.setHeader("Accept", "application/json");
+            //httpPost.setHeader("Content-type", "application/json");
 
             httpPost.setEntity(new UrlEncodedFormEntity(params));
 
@@ -85,12 +84,9 @@ public class MercadopagoController {
 
             System.out.println("respuesta Mercadopago: "+ response.getStatusLine().getStatusCode());
             client.close();
-
-
             System.out.println("Credenciales:" + newtoken);
-
         }catch(IOException e){
-
+            System.out.println("Error en Mercadopago.success: " + e.getMessage());
         }
 
         return "mercadopago/success";
