@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:insert="fragments.html :: headerfiles"></head>
+<body>
+<header th:insert="fragments.html :: nav"></header>
+<div class="container">
+    <p>Success</p>
+    <div>El sitio solicita su Authorizacion: </div>
+    <td th:text="${message}"></td>
+    <a href="https://auth.mercadopago.com.ar/authorization?client_id=2207797945420831&response_type=code&platform_id=mp&redirect_uri=https://127.0.0.1:8050/mercadopago/success">
+        Authorizacion
+    </a>
+</div>
+
+</body>
+</html>

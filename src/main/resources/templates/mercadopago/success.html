@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:insert="fragments.html :: headerfiles"></head>
+<body>
+<header th:insert="fragments.html :: nav"></header>
+<div class="container">
+    <p>Success</p>
+    <div>Mercadopago: Codigo de autorizacion </div>
+
+    <input type="text" name="userName" value="James Carrot" th:value="${code}" />
+</div>
+
+</body>
+</html>

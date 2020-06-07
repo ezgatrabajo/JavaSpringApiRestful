@@ -1,0 +1,7 @@
+
+curl -X POST \
+-H "Content-Type: application/json" \
+"https://api.mercadopago.com/users/test_user?access_token=ACCESS_TOKEN" \
+-d '{"site_id":"MLA"}'
+
+https://auth.mercadopago.com.ar/authorization?client_id=2207797945420831&response_type=code&platform_id=mp&redirect_uri=https://127.0.0.1:8050/mercadopago/success
