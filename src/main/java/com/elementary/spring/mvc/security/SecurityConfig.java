@@ -49,21 +49,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
             	.csrf().disable()
 
 				//.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-
-				/*
 				.addFilter(new JwtAuthenticationFilter(authenticationManager()))
 				.addFilter(new JwtAuthorizationFilter(authenticationManager(),  this.userRepository))
-				*/
 				.authorizeRequests()
 
 				// configure access rules
 				//tutorial
 				.antMatchers(HttpMethod.GET, "/").permitAll()
+				.antMatchers(HttpMethod.POST, "/v1/mercadopago/procesar_pago").permitAll()
 				.antMatchers(HttpMethod.POST, "/login").permitAll()
 				.antMatchers("/api/public/admin/*").hasRole("ADMIN")
 				//Mios
-				.antMatchers("/index.html").permitAll()
-                .antMatchers("/profile/**").permitAll()
+				.antMatchers("/profile/**").permitAll()
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/management/**").hasAnyRole("ADMIN", "MANAGER")
                 .antMatchers("/v1/categorias/**").hasRole("MANAGER")
@@ -73,7 +70,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
 				.anyRequest().authenticated()
                 //.httpBasic().and().csrf().disable();
+				/*
 				.and()
+
 				.formLogin()
 				.loginPage("/login").permitAll()
 				.loginProcessingUrl("/signin")
@@ -87,7 +86,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 				.rememberMe()
 				.tokenValiditySeconds(2592000).key("mySecret!")
 				.rememberMeParameter("checkRememberMe");
-
+ 				*/
 
 		;
 	}
