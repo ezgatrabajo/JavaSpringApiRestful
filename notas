@@ -63,3 +63,24 @@ curl -X POST \
     }'
 
 
+
+Crear usuario test
+curl -X POST \
+-H "Content-Type: application/json" \
+"https://api.mercadopago.com/users/test_user?access_token=PROD_ACCESS_TOKEN" \
+-d '{"site_id":"MLA"}'
+
+{
+  "id": 583472924,
+  "nickname": "TETE6033427",
+  "password": "qatest1130",
+  "site_status": "active",
+  "email": "test_user_54740899@testuser.com"
+}
+{
+  "id": 583469918,
+  "nickname": "TETE3452241",
+  "password": "qatest3498",
+  "site_status": "active",
+  "email": "test_user_67659588@testuser.com"
+}
