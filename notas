@@ -8,9 +8,10 @@ cf push ApiRestfulSpring -p target/ApiRestFulSpring-2-0.0.1-SNAPSHOT.jar
 targetApiRestFulSpring-2-0.0.1-SNAPSHOT.jar
 
  cf push test-employee -p target\employee-producer-0.0.1-SNAPSHOT.jar
+    sudo mysql
 
  CREATE USER 'elementarystudio'@'localhost' IDENTIFIED BY 'YXFzd2RlZnI=';
-
+GRANT ALL PRIVILEGES ON *.* TO 'elementarystudio'@'localhost' WITH GRANT OPTION;
 127.0.0.1:8050
 ----------------------------------------------------------------------------
 
