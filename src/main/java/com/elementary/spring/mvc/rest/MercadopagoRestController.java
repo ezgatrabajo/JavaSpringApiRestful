@@ -12,12 +12,14 @@ import com.mercadopago.exceptions.MPException;
 import com.mercadopago.resources.Card;
 import com.mercadopago.resources.Customer;
 import com.mercadopago.resources.Payment;
+import com.mercadopago.resources.Preference;
 import com.mercadopago.resources.datastructures.customer.DefaultAddress;
 import com.mercadopago.resources.datastructures.customer.Identification;
 import com.mercadopago.resources.datastructures.customer.Phone;
 import com.mercadopago.resources.datastructures.customer.card.PaymentMethod;
 import com.mercadopago.resources.datastructures.payment.Address;
 import com.mercadopago.resources.datastructures.payment.Payer;
+import com.mercadopago.resources.datastructures.preference.Item;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -53,16 +55,20 @@ public class MercadopagoRestController {
     @Autowired
     private AuthorizationcodeRepository repoAuthorizationcode;
 
+
+
     @PostMapping("procesar_pago")
-    public void procesar_pago(HttpServletRequest request){
-        try{
-            String description          = request.getParameter("description");
-            String token                = request.getParameter("token");
-            float transaction_amount    = Float.parseFloat(request.getParameter("transaction_amount"));
-            System.out.println("Procesar Pago: " + description  );
-            System.out.println("Procesar Pago: " + token  );
+    public void procesar_pago(HttpServletRequest request) {
+        try {
+            String description = request.getParameter("description");
+            String token = request.getParameter("token");
+            float transaction_amount = Float.parseFloat(request.getParameter("transaction_amount"));
+            System.out.println("Procesar Pago: " + description);
+            System.out.println("Procesar Pago: " + token);
 
             MercadoPago.SDK.setAccessToken("TEST-2207797945420831-122010-06933213e1f9eda6452bffee4786b2bd__LC_LA__-214222883");
+            MercadoPago.SDK.configure("TEST-2207797945420831-122010-06933213e1f9eda6452bffee4786b2bd__LC_LA__-214222883");
+
             Payment payment = new Payment();
             payment.setTransactionAmount(transaction_amount)
                     .setToken(token)
@@ -75,50 +81,56 @@ public class MercadopagoRestController {
             System.out.println(payment.getStatus());
 
 
-        }catch(MPException e){
+        } catch (MPException e) {
             System.out.println(e.getStatusCode());
-        }
 
+        }
     }
 
 
-	@GetMapping("payments/add/")
-	public String createPayment() {
-		String resultado = "";
+    @PostMapping("procesar_pago_efectivo")
+    public void procesar_pago_efectivo(HttpServletRequest request) {
+        try {
+            String description = request.getParameter("description");
+            String token = request.getParameter("token");
+            float transaction_amount = Float.parseFloat(request.getParameter("transaction_amount"));
+            System.out.println("Procesar Pago: " + description);
+            System.out.println("Procesar Pago: " + token);
 
-		try {
+            MercadoPago.SDK.setAccessToken("TEST-2207797945420831-122010-06933213e1f9eda6452bffee4786b2bd__LC_LA__-214222883");
+            MercadoPago.SDK.configure("TEST-2207797945420831-122010-06933213e1f9eda6452bffee4786b2bd__LC_LA__-214222883");
+            Payment payment = new Payment();
+            Payer p = new Payer();
+            p.setEmail("test_user_54740899@testuser.com");
 
-			MercadoPago.SDK.setAccessToken("TEST-2207797945420831-122010-06933213e1f9eda6452bffee4786b2bd__LC_LA__-214222883");
-			MercadoPago.SDK.setClientSecret("lZVQBryGrJ3wzcuFLBrxsWuETU4sm1IEss");
-			MercadoPago.SDK.setClientId("2207797945420831");
+            payment.setTransactionAmount(100f)
+                    .setDescription("Título del producto")
+                    .setPaymentMethodId("rapipago")
+                    .setPayer(p);
 
-			Payment payment = new Payment();
+            payment.save();
+        } catch (MPException e) {
+            System.out.println(e.getStatusCode());
 
-					payment.setTransactionAmount(100f)
-					.setToken("b3a7dbec3eb0d71798c4f19fec445795")
-					.setDescription("description")
-					.setInstallments(1)
-					.setPaymentMethodId("visa")
-					.setPayer(new Payer()
-							.setEmail("dummy_email"));
+        }
+    }
 
+    @PostMapping("notifications")
+    public void notification_ipn(HttpServletRequest request){
+        try {
 
-
-			payment.save();
-			System.out.println(payment.getStatus());
-
-
-			return payment.getId();
-		}
-		catch (MPException e) {
-
-			return e.getMessage();
-		}
-
-	}
+            String token = request.getParameter("token");
+            System.out.println("Notification ipn: " + token);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
 
-    @PostMapping("/card/add")
+
+
+
+    @PostMapping("card/add")
     public void card_add() {
         try {
             MercadoPago.SDK.configure("TEST-2207797945420831-122010-06933213e1f9eda6452bffee4786b2bd__LC_LA__-214222883");
@@ -135,7 +147,6 @@ public class MercadopagoRestController {
         } catch (MPException e) {
             e.printStackTrace();
         }
-
     }
 
     @GetMapping("/success")

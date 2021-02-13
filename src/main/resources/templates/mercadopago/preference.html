@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:insert="fragments.html :: headerfiles"></head>
+<body>
+<header th:insert="fragments.html :: nav"></header>
+<div class="container">
+    <p>Mercado pago - Preference</p>
+    <div th:text="${preference_id}"></div>
+    <label th:value="${preference_id}" />
+    <form action="/v1/mercadopago/procesar_pago" method="POST">
+        <script
+                src="https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js"
+                data-preference-id="${preference_id}">
+        </script>
+    </form>
+</div>
+
+</body>
+</html>

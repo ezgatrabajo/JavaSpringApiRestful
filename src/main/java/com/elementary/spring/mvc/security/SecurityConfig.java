@@ -49,8 +49,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
             	.csrf().disable()
 
 				//.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-				.addFilter(new JwtAuthenticationFilter(authenticationManager()))
-				.addFilter(new JwtAuthorizationFilter(authenticationManager(),  this.userRepository))
+				//.addFilter(new JwtAuthenticationFilter(authenticationManager()))
+				//.addFilter(new JwtAuthorizationFilter(authenticationManager(),  this.userRepository))
 				.authorizeRequests()
 
 				// configure access rules
@@ -70,7 +70,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
 				.anyRequest().authenticated()
                 //.httpBasic().and().csrf().disable();
-				/*
+
 				.and()
 
 				.formLogin()
@@ -86,7 +86,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 				.rememberMe()
 				.tokenValiditySeconds(2592000).key("mySecret!")
 				.rememberMeParameter("checkRememberMe");
- 				*/
+
 
 		;
 	}

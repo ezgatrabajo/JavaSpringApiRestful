@@ -1,17 +1,16 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-
->
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <!-- Fragment #1 : Header files contains css and js references -->
 <head th:fragment="headerfiles">
     <title>Introduction to SpringBoot Security</title>
     <meta charset="UTF-8"/>
-    <link th:href="@{~/bootstrap.min.css}" rel="stylesheet">
-    <link th:href="@{~/fontawesome/css/all.css}" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-
+<!--
+    <link th:href="@{/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/fontawesome/css/all.css}" rel="stylesheet">
+-->
 </head>
 <body>
 

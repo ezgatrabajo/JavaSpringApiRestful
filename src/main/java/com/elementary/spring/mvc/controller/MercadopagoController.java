@@ -38,7 +38,7 @@ import com.mercadopago.*;
 import com.mercadopago.exceptions.MPConfException;
 import com.mercadopago.exceptions.MPException;
 import com.mercadopago.resources.Payment;
-import com.mercadopago.resources.datastructures.payment.Payer;
+import com.mercadopago.resources.datastructures.preference.Payer;
 
 
 @Controller
@@ -72,6 +72,34 @@ public class MercadopagoController {
         ModelAndView modelAndView = new ModelAndView("mercadopago/viewPage");
         modelAndView.addObject("message", "Baeldung");
         return modelAndView;
+    }
+
+    @GetMapping("/preference")
+    public String preference_add(ModelMap m) {
+        try {
+            //MercadoPago.SDK.configure("TEST-2207797945420831-122010-06933213e1f9eda6452bffee4786b2bd__LC_LA__-214222883");
+            MercadoPago.SDK.setAccessToken("TEST-3543842501183224-061202-99cb3dc17b0c26eddce225120c6bce75-583472924");
+
+            // Crea un objeto de preferencia
+            Preference preference = new Preference();
+            Payer p = new Payer();
+            p.setEmail("test_user_54740899@testuser.com");
+
+            preference.setPayer(p);
+            // Crea un ítem en la preferencia
+            Item item = new Item();
+            item.setTitle("Mi producto")
+                    .setQuantity(1)
+                    .setUnitPrice((float) 75.56);
+            preference.appendItem(item);
+            preference.save();
+            m.addAttribute("preference_id",preference.getId());
+
+        } catch (MPException e) {
+            e.printStackTrace();
+        }
+
+        return "mercadopago/preference";
     }
 
     @GetMapping("/success")
@@ -121,7 +149,7 @@ public class MercadopagoController {
         return "mercadopago/success";
     }
 
-    @GetMapping("/authorizacion")
+    @GetMapping("authorizacion")
     public String authorizacion(ModelMap map) {
 
         return "mercadopago/authorizacion";
