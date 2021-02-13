@@ -16,7 +16,7 @@ import org.springframework.http.HttpStatus;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
-
+/*comentario*/
 @RestController
 @RequestMapping("/v1/marcas")
 @CrossOrigin
