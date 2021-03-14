@@ -59,20 +59,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 				.antMatchers(HttpMethod.POST, "/v1/mercadopago/procesar_pago").permitAll()
 				.antMatchers(HttpMethod.POST, "/login").permitAll()
 				.antMatchers("/api/public/admin/*").hasRole("ADMIN")
-				//Mios
+				//Determinar permisos a las urls
 				.antMatchers("/profile/**").permitAll()
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/management/**").hasAnyRole("ADMIN", "MANAGER")
-                .antMatchers("/v1/categorias/**").hasRole("MANAGER")
-				.antMatchers("/v1/marcas/**").hasRole("ADMIN")
+                .antMatchers("/v1/categorias/**").permitAll()
+				.antMatchers("/v1/marcas/**").hasRole("MANAGER")
 				.antMatchers("/mercadopago/**").permitAll()
 
-
-				.anyRequest().authenticated()
-                //.httpBasic().and().csrf().disable();
-
+				// Auth basic con esto se configura el login con seguridad basica
+				.anyRequest().authenticated().and()
+                .httpBasic()
+                //.authenticationEntryPoint(authenticationEntryPoint)
+                //.and()
+                //.authenticationProvider(getProvider());
+				// Auth basic
+/*
+// con esto se activa el formulario login desde un navegador
 				.and()
-
 				.formLogin()
 				.loginPage("/login").permitAll()
 				.loginProcessingUrl("/signin")
@@ -86,7 +90,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 				.rememberMe()
 				.tokenValiditySeconds(2592000).key("mySecret!")
 				.rememberMeParameter("checkRememberMe");
-
+*/
 
 		;
 	}

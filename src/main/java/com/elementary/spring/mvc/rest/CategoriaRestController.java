@@ -23,11 +23,12 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping("/v1/categorias")
-@CrossOrigin
+
 public class CategoriaRestController {
 	
 	@Autowired
 	private CategoriaRepository repo;
+
 
 	public List<Categoria> findAll(){
 			List<Categoria> t =repo.findAll();
@@ -35,6 +36,7 @@ public class CategoriaRestController {
 	}
 
 	@GetMapping()
+	@CrossOrigin(origins="http://localhost:3000")
 	public CollectionModel<EntityModel<Categoria>> all() {
 
 		List<EntityModel<Categoria>> categorias =
@@ -67,12 +69,14 @@ public class CategoriaRestController {
 
 
 	@PutMapping()
+	@CrossOrigin(origins ="http://localhost:3000")
 	public void edit(@RequestBody Categoria e){
 		repo.save(e);
 	}
 
 	@DeleteMapping(value="/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@CrossOrigin(origins ="http://localhost:3000")
 	public void delete(@PathVariable("id") Integer id){
 		repo.deleteById(id);
 	}

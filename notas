@@ -85,3 +85,14 @@ curl -X POST \
   "site_status": "active",
   "email": "test_user_67659588@testuser.com"
 }
+
+
+
+
+/*
+server.ssl.enabled=true
+server.ssl.key-store: src/main/resources/bootsecurity.p12
+server.ssl.key-store-password: bootsecurity
+server.ssl.keyStoreType: PKCS12
+server.ssl.keyAlias: bootsecurity
+*/

@@ -19,7 +19,6 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 /*comentario*/
 @RestController
 @RequestMapping("/v1/marcas")
-@CrossOrigin
 public class MarcaRestController {
 	
 	@Autowired
